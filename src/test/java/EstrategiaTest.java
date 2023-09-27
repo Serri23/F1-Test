@@ -33,155 +33,44 @@ class EstrategiaTest {
 	 * porcentajeDeVida = 100%
 	 */
 	
-	/*
-	 *  
-	 * 
-	 */
 	@ParameterizedTest
 	@CsvSource({
-		"5f , 5f , true",   //Clase 1
-		"5f , -5f, false",  //Clase 2 
-		"5f , 0f , true",   //Clase 3
-		"-5f, 5f , false",  //Clase 4
-		"-5f, -5f, false",  //Clase 5
-		"-5f, 0f , false",  //Clase 6
-		"0f , 0f , true",   //Clase 7
-		"0f , 5f , true",   //Clase 8
-		"0f , -5f, false",  //Clase 9
+		"0.4833333f,	0.3166635, true",  //Clase 1
+		"0.4833333f,	0.3499999, false", //Clase 2
+		"0.4833333f,	0.3333333, true",  //Clase 3
+		"0.5166666f,	0.3166635, false", //Clase 4
+		"0.5166666f,	0.3499999, false", //Clase 5
+		"0.5166666f,	0.3333333, false", //Clase 6
+		"0.5f,			0.3333333, true",  //Clase 7
+		"0.5f,			0.3166635, true",  //Clase 8
+		"0.5f,			0.3499999, false", //Clase 9
 	})
-	void testEsViableParametrizado(float litrosRestantes,float porcentajeDeVidaRestante,boolean resultado) throws NumeroNeumaticosMayorQueCuatroException, DistintaMarcaNeumaticosException, DistintoPorcentajeDeVidaNeumaticosException {
-		Estrategia estrategia = generarEstrategia(litrosRestantes,porcentajeDeVidaRestante);
+	void testEsViableParametrizado(float combustiblePorKmRecorrido,float porcentajeDeVidaDeNeumaticosConsumidoPorKmRecorrido,boolean resultado) throws NumeroNeumaticosMayorQueCuatroException, DistintaMarcaNeumaticosException, DistintoPorcentajeDeVidaNeumaticosException {
+		Estrategia estrategia = generarEstrategia(combustiblePorKmRecorrido,porcentajeDeVidaDeNeumaticosConsumidoPorKmRecorrido);
 		assertEquals(resultado,estrategia.esViable());
 	}
 	
 	@Test
-	void testCeroCero() throws NumeroNeumaticosMayorQueCuatroException, DistintaMarcaNeumaticosException, DistintoPorcentajeDeVidaNeumaticosException {
-		//Given
-		float litrosRestantes = 5f;
-		float porcentajeDeVidaRestante = 5f;
-		Estrategia estrategia = generarEstrategia(litrosRestantes,porcentajeDeVidaRestante);
-
-		//When & Then
-		assertTrue(estrategia.esViable());
-	}
-	
-	//Clase 1
-	@Test
-	void testLitrosCombustibleMayorQueCeroYPorcentajeDeVidaNeumaticosMayorQueCero() throws NumeroNeumaticosMayorQueCuatroException, DistintaMarcaNeumaticosException, DistintoPorcentajeDeVidaNeumaticosException {
-		//Given
-		float litrosRestantes = 5f;
-		float porcentajeDeVidaRestante = 5f;
-		Estrategia estrategia = generarEstrategia(litrosRestantes,porcentajeDeVidaRestante);
-
-		//When & Then
-		assertTrue(estrategia.esViable());
-	}
-	
-	//Clase 2
-	@Test
-	void testLitrosCombustibleMayorQueCeroYPorcentajeDeVidaNeumaticosMenorQueCero() throws NumeroNeumaticosMayorQueCuatroException, DistintaMarcaNeumaticosException, DistintoPorcentajeDeVidaNeumaticosException {
-		//Given
-		float litrosRestantes = 5f;
-		float porcentajeDeVidaRestante = -5f;
-		Estrategia estrategia = generarEstrategia(litrosRestantes,porcentajeDeVidaRestante);
+	void unaEstrategiaNoPuedeTenerMasDeCuatroNeumaticos() {
 		
-		//When & Then
-		assertFalse(estrategia.esViable()); 
 	}
 	
-	//Clase 3
 	@Test
-	void testLitrosCombustibleMayorQueCeroYPorcentajeDeVidaNeumaticosIgualACero() throws NumeroNeumaticosMayorQueCuatroException, DistintaMarcaNeumaticosException, DistintoPorcentajeDeVidaNeumaticosException {
-		//Given
-		float litrosRestantes = 5f;
-		float porcentajeDeVidaRestante = 0f;
-		Estrategia estrategia = generarEstrategia(litrosRestantes,porcentajeDeVidaRestante);
-
-		//When & Then
-		assertTrue(estrategia.esViable()); 
-	}
-	
-	//Clase 4
-	@Test
-	void testLitrosCombustibleMenorQueCeroYPorcentajeDeVidaNeumaticosMayorQueCero() throws NumeroNeumaticosMayorQueCuatroException, DistintaMarcaNeumaticosException, DistintoPorcentajeDeVidaNeumaticosException {
-		//Given
-		float litrosRestantes = -5f;
-		float porcentajeDeVidaRestante = 5f;
-		Estrategia estrategia = generarEstrategia(litrosRestantes,porcentajeDeVidaRestante);
-
-		//When & Then
-		assertFalse(estrategia.esViable()); 
-	}
-	
-	//Clase 5
-	@Test
-	void testLitrosCombustibleMenorQueCeroYPorcentajeDeVidaNeumaticosMenorQueCero() throws NumeroNeumaticosMayorQueCuatroException, DistintaMarcaNeumaticosException, DistintoPorcentajeDeVidaNeumaticosException {
-		//Given
-		float litrosRestantes = -5f;
-		float porcentajeDeVidaRestante = -5f;
-		Estrategia estrategia = generarEstrategia(litrosRestantes,porcentajeDeVidaRestante);
-
-		//When & Then
-		assertFalse(estrategia.esViable()); 
-	}
-	
-	//Clase 6
-	@Test
-	void testLitrosCombustibleMenorQueCeroYPorcentajeDeVidaNeumaticosIgualACero() throws NumeroNeumaticosMayorQueCuatroException, DistintaMarcaNeumaticosException, DistintoPorcentajeDeVidaNeumaticosException {
-		//Given
-		float litrosRestantes = -5f;
-		float porcentajeDeVidaRestante = 0f;
-		Estrategia estrategia = generarEstrategia(litrosRestantes,porcentajeDeVidaRestante);
-
-		//When & Then
-		assertFalse(estrategia.esViable()); 
-	}
-	
-	//Clase 7
-	@Test
-	void testLitrosCombustibleIgualACeroYPorcentajeDeVidaNeumaticosIgualACero() throws NumeroNeumaticosMayorQueCuatroException, DistintaMarcaNeumaticosException, DistintoPorcentajeDeVidaNeumaticosException {
-		//Given
-		float litrosRestantes = 0f;
-		float porcentajeDeVidaRestante = 0f;
-		Estrategia estrategia = generarEstrategia(litrosRestantes,porcentajeDeVidaRestante);
-
-		//When & Then
-		assertTrue(estrategia.esViable()); 
-	}
-	
-	//Clase 8
-	@Test
-	void testLitrosCombustibleIgualACeroYPorcentajeDeVidaNeumaticosMayorQueCero() throws NumeroNeumaticosMayorQueCuatroException, DistintaMarcaNeumaticosException, DistintoPorcentajeDeVidaNeumaticosException {
-		//Given
-		float litrosRestantes = 0f;
-		float porcentajeDeVidaRestante = 5f;
-		Estrategia estrategia = generarEstrategia(litrosRestantes,porcentajeDeVidaRestante);
-
-		//When & Then
-		assertTrue(estrategia.esViable()); 
-	}
-
-	//Clase 9
-	@Test
-	void testLitrosCombustibleIgualACeroYPorcentajeDeVidaNeumaticosMenorQueCero() throws NumeroNeumaticosMayorQueCuatroException, DistintaMarcaNeumaticosException, DistintoPorcentajeDeVidaNeumaticosException {
-		//Given
-		float litrosRestantes = 0f;
-		float porcentajeDeVidaRestante = -5f;
-		Estrategia estrategia = generarEstrategia(litrosRestantes,porcentajeDeVidaRestante);
-
-		//When & Then
-		assertFalse(estrategia.esViable()); 
-	}
-	
-	private Estrategia generarEstrategia(float litrosRestantes, float porcentajeDeVidaRestante) throws NumeroNeumaticosMayorQueCuatroException, DistintaMarcaNeumaticosException, DistintoPorcentajeDeVidaNeumaticosException {
-		float combustiblePorKmRecorrido = 0.5f;
+	void unaEstrategiaNoPuedeTenerNeumaticosDeDistintasMarcas() {
 		
-		float porcentajeDeVidaDeNeumaticosConsumidoPorKmRecorrido = 0.3333333333333333333333333f;
+	}
+	
+	@Test
+	void unaEstrategiaNoPuedeTenerNeumaticosConPorcentajesDeVidaNegativos() {
 		
-		Combustible combustible = new Combustible(TipoCombustible.DIESEL,litrosRestantes);
+	}
+	
+	private Estrategia generarEstrategia(float combustiblePorKmRecorrido, float porcentajeDeVidaDeNeumaticosConsumidoPorKmRecorrido) throws NumeroNeumaticosMayorQueCuatroException, DistintaMarcaNeumaticosException, DistintoPorcentajeDeVidaNeumaticosException {
+		
+		Combustible combustible = new Combustible(TipoCombustible.DIESEL,LITROS);
 		List<Neumatico> neumaticos = new ArrayList<Neumatico>();
 		for(int i = 0 ; i < 4; i++) {
-			Neumatico neumatico = new Neumatico(MarcaNeumatico.PIRELLI, porcentajeDeVidaRestante);
+			Neumatico neumatico = new Neumatico(MarcaNeumatico.PIRELLI, PORCENTAJE_DE_VIDA);
 			neumaticos.add(neumatico);
 		}
 		Estrategia estrategia = new Estrategia(combustible,combustiblePorKmRecorrido,neumaticos,porcentajeDeVidaDeNeumaticosConsumidoPorKmRecorrido,KILOMETROS_A_RECORRER);
