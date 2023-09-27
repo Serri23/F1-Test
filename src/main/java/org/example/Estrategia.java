@@ -9,6 +9,22 @@ public class Estrategia {
 	private float porcentajeDeVidaDeNeumaticosConsumidoPorKmRecorrido;
 	private float kilometrosARecorrer;
 	
+	public float getPorcentajeDeVidaDeNeumaticosConsumidoPorKmRecorrido() {
+		return porcentajeDeVidaDeNeumaticosConsumidoPorKmRecorrido;
+	}
+	public float getKilometrosARecorrer() {
+		return kilometrosARecorrer;
+	}
+	public Combustible getCombustible() {
+		return combustible;
+	}
+	public float getCombustiblePorKmRecorrido() {
+		return combustiblePorKmRecorrido;
+	}
+	public List<Neumatico> getNeumaticos() {
+		return neumaticos;
+	}
+	
 	public Estrategia(Combustible combustible, float combustiblePorKmRecorrido, List<Neumatico> neumaticos,
 			float porcentajeDeVidaDeNeumaticosConsumidoPorKmRecorrido, float kilometrosARecorrer) throws NumeroNeumaticosMayorQueCuatroException, DistintaMarcaNeumaticosException, DistintoPorcentajeDeVidaNeumaticosException {
 		super();
@@ -40,22 +56,6 @@ public class Estrategia {
 			if(neumatico.getPorcentajeDeVida() == (porcentajeDeVida)) resultado = true;
 		}
 		return resultado;
-	}
-
-	public float getPorcentajeDeVidaDeNeumaticosConsumidoPorKmRecorrido() {
-		return porcentajeDeVidaDeNeumaticosConsumidoPorKmRecorrido;
-	}
-	public float getKilometrosARecorrer() {
-		return kilometrosARecorrer;
-	}
-	public Combustible getCombustible() {
-		return combustible;
-	}
-	public float getCombustiblePorKmRecorrido() {
-		return combustiblePorKmRecorrido;
-	}
-	public List<Neumatico> getNeumaticos() {
-		return neumaticos;
 	}
 	
 	public boolean esViable() {
