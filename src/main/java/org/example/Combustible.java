@@ -17,13 +17,5 @@ public class Combustible {
 
 	public void setLitros(float litros) {
 		this.litros = litros;
-	}
-
-	public TipoCombustible getTipoCombustible() {
-		return tipoCombustible;
-	}
-
-	public void setTipoCombustible(TipoCombustible tipoCombustible) {
-		this.tipoCombustible = tipoCombustible;
 	}	
 }

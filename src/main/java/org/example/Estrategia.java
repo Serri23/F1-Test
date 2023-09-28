@@ -44,7 +44,7 @@ public class Estrategia {
 			if(neumatico.getMarca().equals(marca)) {
 				resultado = true;
 			}else {
-				resultado = false;
+				return false;
 			}
 		}
 		return resultado;
@@ -53,7 +53,11 @@ public class Estrategia {
 	private boolean comprobarPorcentajeDeVidaNeumaticos(List<Neumatico> neumaticos, float porcentajeDeVida) {
 		boolean resultado = false;
 		for(Neumatico neumatico : neumaticos) {
-			if(neumatico.getPorcentajeDeVida() == (porcentajeDeVida)) resultado = true;
+			if(neumatico.getPorcentajeDeVida() == (porcentajeDeVida)) {
+				resultado = true;
+			}else {
+				return false;
+			}
 		}
 		return resultado;
 	}
