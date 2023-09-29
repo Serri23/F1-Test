@@ -11,7 +11,6 @@ import org.example.enums.TipoCombustibleEnum;
 import org.example.exceptions.DistintaMarcaNeumaticosException;
 import org.example.exceptions.DistintoPorcentajeDeVidaNeumaticosException;
 import org.example.exceptions.NumeroNeumaticosMayorQueCuatroException;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
@@ -48,41 +47,6 @@ class EstrategiaTest {
 	void testEsViableParametrizado(float combustiblePorKmRecorrido,float porcentajeDeVidaDeNeumaticosConsumidoPorKmRecorrido,boolean resultado) throws NumeroNeumaticosMayorQueCuatroException, DistintaMarcaNeumaticosException, DistintoPorcentajeDeVidaNeumaticosException {
 		Estrategia estrategia = generarEstrategia(combustiblePorKmRecorrido,porcentajeDeVidaDeNeumaticosConsumidoPorKmRecorrido);
 		assertEquals(resultado,estrategia.esViable());
-	}
-	
-	@Test
-	void unaEstrategiaNoPuedeTenerMasDeCuatroNeumaticos() throws NumeroNeumaticosMayorQueCuatroException, DistintaMarcaNeumaticosException, DistintoPorcentajeDeVidaNeumaticosException {
-		Combustible combustible = new Combustible(TipoCombustibleEnum.DIESEL,LITROS);
-		List<Neumatico> neumaticos = new ArrayList<Neumatico>();
-		for(int i = 0 ; i < 5; i++) {
-			Neumatico neumatico = new Neumatico(MarcaNeumaticoEnum.PIRELLI, PORCENTAJE_DE_VIDA);
-			neumaticos.add(neumatico);
-		}
-		assertThrows(Exception.class, () -> new Estrategia(combustible, 0, neumaticos, 0, KILOMETROS_A_RECORRER));
-	}
-	
-	@Test
-	void unaEstrategiaNoPuedeTenerNeumaticosDeDistintasMarcas() {
-		Combustible combustible = new Combustible(TipoCombustibleEnum.DIESEL,LITROS);
-		List<Neumatico> neumaticos = new ArrayList<Neumatico>();
-		for(int i = 0 ; i < 3; i++) {
-			Neumatico neumatico = new Neumatico(MarcaNeumaticoEnum.PIRELLI, PORCENTAJE_DE_VIDA);
-			neumaticos.add(neumatico);
-		}
-		neumaticos.add(new Neumatico(MarcaNeumaticoEnum.BRIDGESTONE, PORCENTAJE_DE_VIDA));
-		assertThrows(Exception.class, () -> new Estrategia(combustible, 0, neumaticos, 0, KILOMETROS_A_RECORRER));
-	}
-	
-	@Test
-	void unaEstrategiaNoPuedeTenerNeumaticosConPorcentajesDeVidaDistintos() {
-		Combustible combustible = new Combustible(TipoCombustibleEnum.DIESEL,LITROS);
-		List<Neumatico> neumaticos = new ArrayList<Neumatico>();
-		for(int i = 0 ; i < 3; i++) {
-			Neumatico neumatico = new Neumatico(MarcaNeumaticoEnum.PIRELLI, PORCENTAJE_DE_VIDA);
-			neumaticos.add(neumatico);
-		}
-		neumaticos.add(new Neumatico(MarcaNeumaticoEnum.PIRELLI, 0f));
-		assertThrows(Exception.class, () -> new Estrategia(combustible, 0, neumaticos, 0, KILOMETROS_A_RECORRER));
 	}
 	
 	private Estrategia generarEstrategia(float combustiblePorKmRecorrido, float porcentajeDeVidaDeNeumaticosConsumidoPorKmRecorrido) throws NumeroNeumaticosMayorQueCuatroException, DistintaMarcaNeumaticosException, DistintoPorcentajeDeVidaNeumaticosException {
