@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.example.Combustible;
-import org.example.DistintaMarcaNeumaticosException;
-import org.example.DistintoPorcentajeDeVidaNeumaticosException;
 import org.example.Estrategia;
-import org.example.MarcaNeumatico;
 import org.example.Neumatico;
-import org.example.NumeroNeumaticosMayorQueCuatroException;
-import org.example.TipoCombustible;
+import org.example.enums.MarcaNeumaticoEnum;
+import org.example.enums.TipoCombustibleEnum;
+import org.example.exceptions.DistintaMarcaNeumaticosException;
+import org.example.exceptions.DistintoPorcentajeDeVidaNeumaticosException;
+import org.example.exceptions.NumeroNeumaticosMayorQueCuatroException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -52,10 +52,10 @@ class EstrategiaTest {
 	
 	@Test
 	void unaEstrategiaNoPuedeTenerMasDeCuatroNeumaticos() throws NumeroNeumaticosMayorQueCuatroException, DistintaMarcaNeumaticosException, DistintoPorcentajeDeVidaNeumaticosException {
-		Combustible combustible = new Combustible(TipoCombustible.DIESEL,LITROS);
+		Combustible combustible = new Combustible(TipoCombustibleEnum.DIESEL,LITROS);
 		List<Neumatico> neumaticos = new ArrayList<Neumatico>();
 		for(int i = 0 ; i < 5; i++) {
-			Neumatico neumatico = new Neumatico(MarcaNeumatico.PIRELLI, PORCENTAJE_DE_VIDA);
+			Neumatico neumatico = new Neumatico(MarcaNeumaticoEnum.PIRELLI, PORCENTAJE_DE_VIDA);
 			neumaticos.add(neumatico);
 		}
 		assertThrows(Exception.class, () -> new Estrategia(combustible, 0, neumaticos, 0, KILOMETROS_A_RECORRER));
@@ -63,34 +63,34 @@ class EstrategiaTest {
 	
 	@Test
 	void unaEstrategiaNoPuedeTenerNeumaticosDeDistintasMarcas() {
-		Combustible combustible = new Combustible(TipoCombustible.DIESEL,LITROS);
+		Combustible combustible = new Combustible(TipoCombustibleEnum.DIESEL,LITROS);
 		List<Neumatico> neumaticos = new ArrayList<Neumatico>();
 		for(int i = 0 ; i < 3; i++) {
-			Neumatico neumatico = new Neumatico(MarcaNeumatico.PIRELLI, PORCENTAJE_DE_VIDA);
+			Neumatico neumatico = new Neumatico(MarcaNeumaticoEnum.PIRELLI, PORCENTAJE_DE_VIDA);
 			neumaticos.add(neumatico);
 		}
-		neumaticos.add(new Neumatico(MarcaNeumatico.BRIDGESTONE, PORCENTAJE_DE_VIDA));
+		neumaticos.add(new Neumatico(MarcaNeumaticoEnum.BRIDGESTONE, PORCENTAJE_DE_VIDA));
 		assertThrows(Exception.class, () -> new Estrategia(combustible, 0, neumaticos, 0, KILOMETROS_A_RECORRER));
 	}
 	
 	@Test
 	void unaEstrategiaNoPuedeTenerNeumaticosConPorcentajesDeVidaDistintos() {
-		Combustible combustible = new Combustible(TipoCombustible.DIESEL,LITROS);
+		Combustible combustible = new Combustible(TipoCombustibleEnum.DIESEL,LITROS);
 		List<Neumatico> neumaticos = new ArrayList<Neumatico>();
 		for(int i = 0 ; i < 3; i++) {
-			Neumatico neumatico = new Neumatico(MarcaNeumatico.PIRELLI, PORCENTAJE_DE_VIDA);
+			Neumatico neumatico = new Neumatico(MarcaNeumaticoEnum.PIRELLI, PORCENTAJE_DE_VIDA);
 			neumaticos.add(neumatico);
 		}
-		neumaticos.add(new Neumatico(MarcaNeumatico.PIRELLI, 0f));
+		neumaticos.add(new Neumatico(MarcaNeumaticoEnum.PIRELLI, 0f));
 		assertThrows(Exception.class, () -> new Estrategia(combustible, 0, neumaticos, 0, KILOMETROS_A_RECORRER));
 	}
 	
 	private Estrategia generarEstrategia(float combustiblePorKmRecorrido, float porcentajeDeVidaDeNeumaticosConsumidoPorKmRecorrido) throws NumeroNeumaticosMayorQueCuatroException, DistintaMarcaNeumaticosException, DistintoPorcentajeDeVidaNeumaticosException {
 		
-		Combustible combustible = new Combustible(TipoCombustible.DIESEL,LITROS);
+		Combustible combustible = new Combustible(TipoCombustibleEnum.DIESEL,LITROS);
 		List<Neumatico> neumaticos = new ArrayList<Neumatico>();
 		for(int i = 0 ; i < 4; i++) {
-			Neumatico neumatico = new Neumatico(MarcaNeumatico.PIRELLI, PORCENTAJE_DE_VIDA);
+			Neumatico neumatico = new Neumatico(MarcaNeumaticoEnum.PIRELLI, PORCENTAJE_DE_VIDA);
 			neumaticos.add(neumatico);
 		}
 		Estrategia estrategia = new Estrategia(combustible,combustiblePorKmRecorrido,neumaticos,porcentajeDeVidaDeNeumaticosConsumidoPorKmRecorrido,KILOMETROS_A_RECORRER);

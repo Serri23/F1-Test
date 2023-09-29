@@ -2,82 +2,26 @@ package org.example;
 
 import java.util.List;
 
-public class Estrategia {
-	private final Combustible combustible;
-	private final float combustiblePorKmRecorrido;
-	private final List<Neumatico> neumaticos;
-	private float porcentajeDeVidaDeNeumaticosConsumidoPorKmRecorrido;
-	private float kilometrosARecorrer;
-	
-	public float getPorcentajeDeVidaDeNeumaticosConsumidoPorKmRecorrido() {
-		return porcentajeDeVidaDeNeumaticosConsumidoPorKmRecorrido;
-	}
-	public float getKilometrosARecorrer() {
-		return kilometrosARecorrer;
-	}
-	public Combustible getCombustible() {
-		return combustible;
-	}
-	public float getCombustiblePorKmRecorrido() {
-		return combustiblePorKmRecorrido;
-	}
-	public List<Neumatico> getNeumaticos() {
-		return neumaticos;
-	}
-	
+import org.example.exceptions.DistintaMarcaNeumaticosException;
+import org.example.exceptions.DistintoPorcentajeDeVidaNeumaticosException;
+import org.example.exceptions.NumeroNeumaticosMayorQueCuatroException;
+import org.example.utils.EstrategiaUtil;
+
+public class Estrategia extends EstrategiaOrigen{
 	public Estrategia(Combustible combustible, float combustiblePorKmRecorrido, List<Neumatico> neumaticos,
 			float porcentajeDeVidaDeNeumaticosConsumidoPorKmRecorrido, float kilometrosARecorrer) throws NumeroNeumaticosMayorQueCuatroException, DistintaMarcaNeumaticosException, DistintoPorcentajeDeVidaNeumaticosException {
-		super();
-		this.combustible = combustible;
-		this.combustiblePorKmRecorrido = combustiblePorKmRecorrido;
+		super(combustible,combustiblePorKmRecorrido,neumaticos,porcentajeDeVidaDeNeumaticosConsumidoPorKmRecorrido,kilometrosARecorrer);
 		if(neumaticos.size() > 4) throw new NumeroNeumaticosMayorQueCuatroException();
-		if(!comprobarMarcaNeumaticos(neumaticos,neumaticos.get(0).getMarca())) throw new DistintaMarcaNeumaticosException();
-		if(!comprobarPorcentajeDeVidaNeumaticos(neumaticos,neumaticos.get(0).getPorcentajeDeVida())) throw new DistintoPorcentajeDeVidaNeumaticosException();
-		this.neumaticos = neumaticos;
-		this.porcentajeDeVidaDeNeumaticosConsumidoPorKmRecorrido = porcentajeDeVidaDeNeumaticosConsumidoPorKmRecorrido;
-		this.kilometrosARecorrer = kilometrosARecorrer;
-	}
-
-	private boolean comprobarMarcaNeumaticos(List<Neumatico> neumaticos, MarcaNeumatico marca) {
-		boolean resultado = false;
-		for(Neumatico neumatico : neumaticos) {
-			if(neumatico.getMarca().equals(marca)) {
-				resultado = true;
-			}else {
-				return false;
-			}
-		}
-		return resultado;
-	}
-
-	private boolean comprobarPorcentajeDeVidaNeumaticos(List<Neumatico> neumaticos, float porcentajeDeVida) {
-		boolean resultado = false;
-		for(Neumatico neumatico : neumaticos) {
-			if(neumatico.getPorcentajeDeVida() == (porcentajeDeVida)) {
-				resultado = true;
-			}else {
-				return false;
-			}
-		}
-		return resultado;
+		if(!EstrategiaUtil.comprobarMarcaNeumaticos(neumaticos,neumaticos.get(0).getMarca())) throw new DistintaMarcaNeumaticosException();
+		if(!EstrategiaUtil.comprobarPorcentajeDeVidaNeumaticos(neumaticos,neumaticos.get(0).getPorcentajeDeVida())) throw new DistintoPorcentajeDeVidaNeumaticosException();	
 	}
 	
 	public boolean esViable() {
-		boolean viable = false;
-		calcularRecursos();
+		EstrategiaUtil.calcularRecursos(this);
 		if(this.getCombustible().getLitros() >= 0f 
 				&&  this.getNeumaticos().get(0).getPorcentajeDeVida() >= 0f) {
-			viable = true;
+			return true;
 		}
-		return viable;
-	}
-	
-	private void calcularRecursos() {
-		float litros = this.getCombustible().getLitros() - (this.getCombustiblePorKmRecorrido() * this.getKilometrosARecorrer());
-		float porcentajeVidaNeumaticos= this.getNeumaticos().get(0).getPorcentajeDeVida() - (this.getPorcentajeDeVidaDeNeumaticosConsumidoPorKmRecorrido() * this.getKilometrosARecorrer());
-		this.getCombustible().setLitros(litros);
-		for(Neumatico neumatico : this.getNeumaticos()) {
-			neumatico.setPorcentajeDeVida(porcentajeVidaNeumaticos);
-		}
+		return false;
 	}
 }

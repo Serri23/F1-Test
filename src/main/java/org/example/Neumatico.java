@@ -1,11 +1,13 @@
 package org.example;
 
+import org.example.enums.MarcaNeumaticoEnum;
+
 public class Neumatico {
 
-	private MarcaNeumatico marca;
+	private MarcaNeumaticoEnum marca;
 	private float porcentajeDeVida;
 	
-	public Neumatico(MarcaNeumatico marca, float porcentajeDeVida) {
+	public Neumatico(MarcaNeumaticoEnum marca, float porcentajeDeVida) {
 		super();
 		this.marca = marca;
 		this.porcentajeDeVida = porcentajeDeVida;
@@ -16,7 +18,7 @@ public class Neumatico {
 	public void setPorcentajeDeVida(float porcentajeDeVida) {
 		this.porcentajeDeVida = porcentajeDeVida;
 	}
-	public MarcaNeumatico getMarca() {
+	public MarcaNeumaticoEnum getMarca() {
 		return marca;
 	}
 }

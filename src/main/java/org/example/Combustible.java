@@ -1,11 +1,13 @@
 package org.example;
 
+import org.example.enums.TipoCombustibleEnum;
+
 public class Combustible {
 	
-	private TipoCombustible tipoCombustible;
+	private TipoCombustibleEnum tipoCombustible;
 	private float litros;
 	
-	public Combustible(TipoCombustible tipoCombustible, float litros) {
+	public Combustible(TipoCombustibleEnum tipoCombustible, float litros) {
 		super();
 		this.tipoCombustible = tipoCombustible;
 		this.litros = litros;
