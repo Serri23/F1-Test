@@ -21,4 +21,7 @@ public class Neumatico {
 	public MarcaNeumaticoEnum getMarca() {
 		return marca;
 	}
+	public void setMarca(MarcaNeumaticoEnum marca) {
+		this.marca = marca;
+	}
 }
